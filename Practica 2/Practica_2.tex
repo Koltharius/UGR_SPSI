@@ -123,6 +123,12 @@ Generad, cada uno de vosotros, una clave RSA (que contiene el par de claves) de 
 
 \section{Respuesta}
 \noindent
+Para generar el archivo davidRSAkey.pem que almacene una clave RSA de 768 bits realizamos los siguientes pasos:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/1.png}
+\end{figure}
+
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 2}
@@ -134,6 +140,14 @@ Generad, cada uno de vosotros, una clave RSA (que contiene el par de claves) de 
 \section{Respuesta}
 \noindent
 
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/2.png}
+\end{figure}
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/2.png}
+\end{figure}
+
 % ----------------------------------------------------------------
 \chapter{Ejercicio 3}
 
@@ -143,6 +157,11 @@ Extraed en nombreRSApub.pem la clave pública contenida en el archivo nombreRESA
 
 \section{Respuesta}
 \noindent
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/4.png}
+\end{figure}
+
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 4}
@@ -159,7 +178,7 @@ Reutilizaremos el archivo binario input.bin de 1024 bits, todos ellos con valor 
 
 \section{Enunciado}
 \noindent
-Diseñad un cifrado híbrido, con RESA como criptosistema asimétrico. El modo de proceder será el siguiente:
+Diseñad un cifrado híbrido, con RSA como criptosistema asimétrico. El modo de proceder será el siguiente:
 \begin{enumerate}
  \item El emisor debe seleccionar un sistema simétrico con su correspondiente modo de operación.
  \item El emisor generará un archivo de texto, llamado por ejemplo sessionkey con dos líneas. La primera línea contendrá una cadena aleatoria hexadecimal cuya longitud sea la requerida por la clave. OpenSSL permite generar cadenas aleatorias con el comando openssl rand. La segunda línea contendrá la información del criptosistema simétrico seleccionado. Por ejemplo, si hemos decidido emplear el algoritmo Blowfish en modo ECB la segunda línea debería contener -bf-ecb.
