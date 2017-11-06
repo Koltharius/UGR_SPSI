@@ -76,6 +76,7 @@ linkcolor=webblue]{hyperref}
 }
 
 %%%%% Para cambiar el tipo de letra en el título de la sección %%%%%%%%%%%
+\usepackage{sectsty}
 \chapterfont{\fontfamily{pag}\selectfont} %% for chapter if you want
 \sectionfont{\fontfamily{pag}\selectfont}
 \subsectionfont{\fontfamily{pag}\selectfont}
@@ -123,7 +124,7 @@ Generad, cada uno de vosotros, una clave RSA (que contiene el par de claves) de 
 
 \section{Respuesta}
 \noindent
-Para generar el archivo davidRSAkey.pem que almacene una clave RSA de 768 bits realizamos los siguientes pasos:
+Generamos el archivo davidRSAkey.pem que almacene una clave RSA de 768 bits y mostramos el archivo por pantalla de la siguente manera:
 
 \begin{figure}[!hbp]
  \centering  \includegraphics[width=1\textwidth]{./Imagenes/1.png}
@@ -135,17 +136,31 @@ Para generar el archivo davidRSAkey.pem que almacene una clave RSA de 768 bits r
 
 \section{Enunciado}
 \noindent
-"Extraed" la clave provada contenida en el archivo nombreRSAkey.pem a otro archivo que tenga por nombre nombreRESApriv.pem. Este archivo deberá estar protegido por contraseña cifrándolo con AES-128. Mostrad sus valores.
+Extraed la clave provada contenida en el archivo nombreRSAkey.pem a otro archivo que tenga por nombre nombreRSApriv.pem. Este archivo deberá estar protegido por contraseña cifrándolo con AES-128. Mostrad sus valores.
 
 \section{Respuesta}
 \noindent
+Para extraer la clave privada del archivo davidRSAkey.pem en el archivo davidRSApriv.pem utilizaremos las siguientes opciones:
+
+\begin{itemize}
+ \item Con el modificador -aes128 ciframos el fichero de salida, utilizaremos como contraseña 0123456789.
+ \item Con el modificador -in indicamos el fichero del que se va a extraer la clave privada.
+ \item Con el modificador -out indicamos el fichero de salida en el que almacenaremos la clave privada.
+\end{itemize}
+
+\noindent
+El comando completo para extraer la clave privada sería el siguiente:
 
 \begin{figure}[!hbp]
- \centering  \includegraphics[width=1\textwidth]{./Imagenes/2.png}
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/2_0.png}
 \end{figure}
 
+\newpage
+\noindent
+Ahora muestro el contenido del fichero de salida:
+
 \begin{figure}[!hbp]
- \centering  \includegraphics[width=1\textwidth]{./Imagenes/3.png}
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/2_1.png}
 \end{figure}
 
 % ----------------------------------------------------------------
@@ -157,9 +172,26 @@ Extraed en nombreRSApub.pem la clave pública contenida en el archivo nombreRESA
 
 \section{Respuesta}
 \noindent
+Para extraer la clave privada del archivo davidRSAkey.pem en el archivo davidRSApriv.pem utilizaremos las siguientes opciones:
+
+\begin{itemize}
+ \item Con el modificador -pubout indicamos que queremos extraer la clave pública.
+ \item Con el modificador -in indicamos el fichero del que se va a extraer la clave pública.
+ \item Con el modificador -out indicamos el fichero de salida en el que almacenaremos la clave pública.
+\end{itemize}
+
+\noindent
+El comando completo para extraer la clave pública sería el siguiente:
 
 \begin{figure}[!hbp]
- \centering  \includegraphics[width=1\textwidth]{./Imagenes/4.png}
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/3_0.png}
+\end{figure}
+
+\noindent
+Ahora muestro el contenido del fichero de salida:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/3_1.png}
 \end{figure}
 
 
@@ -168,16 +200,33 @@ Extraed en nombreRSApub.pem la clave pública contenida en el archivo nombreRESA
 
 \section{Enunciado}
 \noindent
-Reutilizaremos el archivo binario input.bin de 1024 bits, todos ellos con valor 0, de la practica anterior. Intentad cifrar input.bin con vuestras claves pública. Explicad el resultado.
+Reutilizaremos el archivo binario input.bin de 1024 bits, todos ellos con valor 0, de la practica anterior.
 
 \section{Respuesta}
 \noindent
+Utilizaré el fichero input.bin de la anterior práctica. Su contenido es el siguiente:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/4.png}
+\end{figure}
+
+% ----------------------------------------------------------------
+\chapter{Ejercicio 5}
+
+\section{Enunciado}
+\noindent
+Intentad cifrar input.bin con vuestras claves pública. Explicad el resultado.
+
+\section{Respuesta}
+\noindent
+Al intentar cifrar el archivo input.bin utilizando la clave pública generada en anteriormente obtenemos un error debido a que el fichero es de 1024 bits y la clave publica es de 768 bits, por lo que al ser el mensaje mayor que la clave no puede cifrarse.
+
 \begin{figure}[!hbp]
  \centering  \includegraphics[width=1\textwidth]{./Imagenes/5.png}
 \end{figure}
 
 % ----------------------------------------------------------------
-\chapter{Ejercicio 5}
+\chapter{Ejercicio 6}
 
 \section{Enunciado}
 \noindent
@@ -193,7 +242,7 @@ Diseñad un cifrado híbrido, con RSA como criptosistema asimétrico. El modo de
 \noindent
 
 % ----------------------------------------------------------------
-\chapter{Ejercicio 6}
+\chapter{Ejercicio 7}
 
 \section{Enunciado}
 \noindent
@@ -203,7 +252,7 @@ Utilizando el criptosistema híbrido diseñado, cada uno debe cifrar el archivo 
 \noindent
 
 % ----------------------------------------------------------------
-\chapter{Ejercicio 7}
+\chapter{Ejercicio 8}
 
 \section{Enunciado}
 \noindent
@@ -213,7 +262,7 @@ Generad un archivo stdECparam.pem que contenga los parámetros públicos de una 
 \noindent
 
 % ----------------------------------------------------------------
-\chapter{Ejercicio 8}
+\chapter{Ejercicio 9}
 
 \section{Enunciado}
 \noindent
@@ -223,18 +272,18 @@ Generad cada uno de vosotros una clave para los parámetros anteriores. La clave
 \noindent
 
 % ----------------------------------------------------------------
-\chapter{Ejercicio 9}
+\chapter{Ejercicio 10}
 
 \section{Enunciado}
 \noindent
-"Extraed" la clave privada contenida en el archivo nombreECkey.pem a otro archivo que tenga por nombre nombreECpriv.pem. Este archivo deberá estar protegido por contraseña cifrándolo con 3DES. Mostrad sus valores.
+Extraed la clave privada contenida en el archivo nombreECkey.pem a otro archivo que tenga por nombre nombreECpriv.pem. Este archivo deberá estar protegido por contraseña cifrándolo con 3DES. Mostrad sus valores.
 
 \section{Respuesta}
 \noindent
 
 
 % ----------------------------------------------------------------
-\chapter{Ejercicio 10}
+\chapter{Ejercicio 11}
 
 \section{Enunciado}
 \noindent
