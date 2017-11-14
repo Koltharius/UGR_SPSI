@@ -240,10 +240,10 @@ Diseñad un cifrado híbrido, con RSA como criptosistema asimétrico. El modo de
 
 \section{Respuesta}
 \noindent
-Voy a utilizar el sistema AES-192-ECB. Ahora genero el archivo sessionkey y le añado en la segunda lina -aes-192-ecb.
+Voy a utilizar el sistema AES-192-ECB. Primero genero el archivo sessionkey y le añado en la segunda lina -aes-192-ecb.
 
 \begin{figure}[!hbp]
- \centering  \includegraphics[width=1\textwidth]{./Imagenes/6.png}
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_0.png}
 \end{figure}
 
 \noindent
@@ -271,6 +271,25 @@ Utilizando el criptosistema híbrido diseñado, cada uno debe cifrar el archivo 
 
 \section{Respuesta}
 \noindent
+Como he hecho en el ultimo apartado del ejercicio anterior cifro el archivo input con AES-192-ECB utilizando el archivo sessionkey de la siguiente manera:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_2.png}
+\end{figure}
+
+\noindent
+El siguiente paso es descifrar el archivo sessionkey\_cifrado utilizando como key davidRSApriv.pem de la siguiente manera:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/7_0.png}
+\end{figure}
+
+\noindent
+Por ultimo desciframos el archivo input\_cifrado.bin y mostramos el archivo descifrado por terminal, comprobando que el archivo de salida es igual a input.bin
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/7_1.png}
+\end{figure}
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 8}
@@ -282,6 +301,12 @@ Generad un archivo stdECparam.pem que contenga los parámetros públicos de una 
 \section{Respuesta}
 \noindent
 
+Primero utilizo el comando openssl ecparam -list\_curves para listar todas las curvas disponibles. Escojo la curva P-192 (prime192v1) ya que es la sugerida en las transparencias de teoría. Genero el archivo stdECparam.pem y lo muestro por pantalla de la siguiente forma:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8.png}
+\end{figure}
+
 % ----------------------------------------------------------------
 \chapter{Ejercicio 9}
 
@@ -291,6 +316,12 @@ Generad cada uno de vosotros una clave para los parámetros anteriores. La clave
 
 \section{Respuesta}
 \noindent
+Para crear una clave con los parametros anteriores utilizamos como fichero de entrada stdECparam.pem, como fichero de salida el archivo davidECkey.pem. Utilizamos -genkey para generar la clave privada que esta asociada a la curva. La orden para realizar esto es la siguiente:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/9.png}
+\end{figure}
+
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 10}
@@ -301,6 +332,11 @@ Extraed la clave privada contenida en el archivo nombreECkey.pem a otro archivo 
 
 \section{Respuesta}
 \noindent
+Para extraer la clave privada contenida en el archivo davidECkey.pem en otro archivo utilizamos el comando ec de OpenSSL. Como contraseña para el cifrado con -des3 utilizare 0123456789. Al mostrar la salida del comando generado comprobamos en la cabecera que este está cifrado con -des3. Esto se haría de la siguiente manera:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/10.png}
+\end{figure}
 
 
 % ----------------------------------------------------------------
@@ -312,6 +348,11 @@ Extraed en nombreECpub.pem la clave pública contenida en el archivo nombreECkey
 
 \section{Respuesta}
 \noindent
+Al igual que en el apartado anterior utilizaré el comando ec de Openssl para extraer la clave pública en el fichero davidECkey.pem:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/11.png}
+\end{figure}
 
 % ----------------------------------------------------------------
 \end{document}
