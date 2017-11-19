@@ -124,6 +124,12 @@ Generad un archivo sharedDSA.pem que contenga los parámetros. Mostrad los valor
 
 \section{Respuesta}
 \noindent
+Para generar el archivo sharedDSA.pem utilizamos el comando openssl dsaparam, lo he generado de 1024 bits. A continuación muestro el archivo como se muestra en la siguiente imagen.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/1.png}
+\end{figure}
+
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 2}
@@ -134,6 +140,14 @@ Generad dos parejas de claves para los parámetros anteriores. Las claves se alm
 
 \section{Respuesta}
 \noindent
+Para generar las dos parejas de claves utilizando los parámetros generados en el ejercicio anterior utilizamos el comando gendsa pasandole como entrada el archivo sharedDSA.pem como se muestra en la siguiente imagen.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/2.png}
+\end{figure}
+
+\noindent
+Podemos observar similitudes en las siete primeras lineas de davidDSAkey.pem y sanchezDSAkey.pem.
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 3}
@@ -144,6 +158,32 @@ Extraed la clave privada contenida en el archivo nombreDSAkey.pem a otro archivo
 
 \section{Respuesta}
 \noindent
+Para extraer la clave privada contenida en el archivo davidDSAkey.pem al archivo davidDSApriv.pem he utilizado cifrado aes 128. Como contraseña he utilizado 0123456789.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/3_0.png}
+\end{figure}
+
+\noindent
+Ahora paso a mostrar el fichero generado:
+% \begin{figure}[!hbp]
+%  \centering  \includegraphics[width=1\textwidth]{./Imagenes/3_1.png}
+% \end{figure}
+
+\newpage
+\noindent
+Para la extraer la clave privada contenida en el archivo sanchezDSAkey.pem repito los mismos pasos:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/3_2.png}
+\end{figure}
+
+\noindent
+Este es el contenido del archivo sanchezDSApriv.pem.
+
+% \begin{figure}[!hbp]
+%  \centering  \includegraphics[width=1\textwidth]{./Imagenes/3_3.png}
+% \end{figure}
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 4}
@@ -154,6 +194,12 @@ Extraed en nombreDSApub.pem la clave pública contenida en el archivo nombreDSAk
 
 \section{Respuesta}
 \noindent
+Para extraer la clave pública contenida en davidDSAkey.pem en davidDSApub.pem utilizamos el modificador -pubout. Hacemos lo mismo con sanchezDSAkey.pem.
+Estos son los valores de ambos archivos.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/4.png}
+\end{figure}
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 5}
@@ -164,16 +210,27 @@ Calculad el valor hash del archivo con la clave pública nombreDSApub.pem usando
 
 \section{Respuesta}
 \noindent
+Calculamos el valor hash del archivo davidDSApub.pem con openssl dgst usando sha384 y -hex para la salida exadecimal. Para que los bloques del codigo exadecimal sean de dos caracteres separados por : utilizamos el modificador -c. Por último redireccionamos la salida al archivo davidDSApub.sha384 para guardar la salida de el comando dentro de este archivo. Finalmente muestro el contenido del archivo.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/5.png}
+\end{figure}
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 6}
 
 \section{Enunciado}
 \noindent
-Calculad el valor hash del archivo con la clave pública apellidoDSApub.pem usando una función hash en apellidoDSApub.[algoritmo] y mostrad su contenido.
+Calculad el valor hash del archivo con la clave pública apellidoDSApub.pem usando una función hash de 160 bits con salida binaria. Guardad el hash en apellidoDSApub.[algoritmo] y mostrad su contenido.
 
 \section{Respuesta}
 \noindent
+Calculamos el valor hash del archivo sanchezDSApub.pem con openssl dgst usando la funcion hash sha1 que es de 160 bits. Utilizamos -binary para que la salida sea en binario. Redireccionamos la salida al archivo sanchezDSApub.sha1 para guardar la salida de el comando dentro de este archivo. Finalmente muestro el contenido del archivo utilizando xxd.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6.png}
+\end{figure}
+
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 7}
@@ -184,6 +241,12 @@ Generad el valor HMAC del archivo sharedDSA.pem con clave '12345' mostrándolo p
 
 \section{Respuesta}
 \noindent
+Para generar el valor HMAC del archivo sharedDSA.pem utilizo -hmac y la clave 12345 con el comando dgst como muestro en la siguiente imagen.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/7.png}
+\end{figure}
+
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 8}
