@@ -266,5 +266,104 @@ El algoritmo simétrico a utilizar en el protocolo estación a estación será A
 
 \section{Respuesta}
 \noindent
+En primer lugar genero el archivo stdECparam.pem pasandole los parámetros de la curva prime192v1.
 
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_1.png}
+\end{figure}
+
+\newpage
+\noindent
+Una vez tenemos el archivo stdECparam.pem podemos generar el archivo davidECkey.pem que contiene la clave privada con los parámetros de la curva contenidos en stdECparam.pem:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_2.png}
+\end{figure}
+
+\noindent
+También generamos el fichero sanchezECkey.pem que al igual que el anterior, contiene la clave privada con los parámetros de la curva contenidos en stdECparam.pem.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_3.png}
+\end{figure}
+
+\newpage
+\noindent
+Una vez tenemos los ficheros davidECkey.pem y sanchezECkey.pem extraemos sus clavez públicas como se muestra en la siguiente imagen.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_4.png}
+\end{figure}
+
+\noindent
+Creo el archivo cont\_A\_EC.pem y concateno dentro el valor de la clave pública de davidECpub.pem y sanchezECpub.pem.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_6.png}
+\end{figure}
+
+\noindent
+También creo el archivo cont\_B\_EC.pem y al igual que en la imagen anterior concateno las claves publicas obtenidas anteriormente, pero en este caso en orden inverso, primero la clave pública de sanchezECpub.pem y a continuación davidECpub.pem
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_7.png}
+\end{figure}
+
+\noindent
+Con el comando pkeyutl creo el archivo keyA utilizando como inkey davidECpriv.pem y como peerkey sanchezECpub.pem. De esa misma forma genero el archivo keyB pero utilizando como inkey sanchezECpriv.pem y como peerkey davidECpub.pem.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_8.png}
+\end{figure}
+
+\newpage
+\noindent
+A continuación con el comando pkeyutl creo a partir del archivo cont\_B\_EC.pem y la clave privada contenida en davidDSApriv.pem genero el archivo firmaBA y la muestro por pantalla.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_9.png}
+\end{figure}
+
+\noindent
+De la misma forma, genero el archivo firmaAB utilizando el archivo cont\_A\_EC.pem y la clave privada contenida en sanchezDSApriv.pem. y muestro su contenido.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_10.png}
+\end{figure}
+
+\noindent
+Ahora paso a encriptar el contenido de firmaBA con aes-128-cfb8 y utilizando como password keyB.bin.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_11.png}
+\end{figure}
+
+
+\noindent
+También encripto el contenido de firmaAB utilizando aes-128-cfb8 y utilizando como password keyA.bin.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_12.png}
+\end{figure}
+
+\noindent
+Ahora desencripto el archivo firmaBA.enc encriptado en el paso anterior utilizando como password keyA.bin y muestro por pantalla el archivo original y el archivo desencriptado, mostrando que el contenido del archivo es el mismo.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_13.png}
+\end{figure}
+
+\noindent
+Procedo de la misma forma desencriptando el archivo firmaAB.enc utilizando como password keyB.bin y comparo el contenido del archivo original y el archivo desencriptado, para comprobar que el contenido es el mismo.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_14.png}
+\end{figure}
+
+\noindent
+Por último, verifico que la integridad de la firma es correcta.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/8_15.png}
+\end{figure}
 \end{document}
