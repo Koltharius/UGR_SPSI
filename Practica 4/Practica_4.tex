@@ -120,10 +120,63 @@ Criptosistemas Asimétricos}
 
 \section{Enunciado}
 \noindent
-Cread una autoridad certificadora, En este caso se permitirá el uso de openssl ca frente a CA.p1, aunque este último comando es admisible.
+Cread una autoridad certificadora, En este caso se permitirá el uso de openssl ca frente a CA.pl, aunque este último comando es admisible.
 
 \section{Respuesta}
 \noindent
+Para la creación de la autoridad certificadora primero es necesario crear la siguiente estructura de carpetas y archivos.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/1_1.png}
+\end{figure}
+
+\noindent
+A continuación busco el archivo openssl.cnf para realizar una copia en el directorio de trabajo y poder modificarlo. A este archivo le he llamado ca.cnf.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/1_2.png}
+\end{figure}
+
+\noindent
+Una vez tengo el archivo ca.cnf en mi directorio de trabajo paso a modificar el contenido de este. Los parametros modificados son:
+
+\begin{itemize}
+ \item En el apartado [ CA\_default ] modifico el parámetro dir	= ./demoCA cambiandolo a dir	= . para que el dir sea el directorio en el que estoy trabajando.
+ \item En el apartado [ CA\_default ] modifico el parámetro default\_md	= default cambiandolo a default\_md	= sha256 para que por defecto utilice sha256.
+ \item En el apartado [ policy\_match ] modifico el parámetro commonName	= supplied cambiandolo a commonName	= optional.
+\end{itemize}
+
+\newpage
+\noindent
+Por último, creo la clave que usará la autoridad certificadora:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/1_3.png}
+\end{figure}
+
+\noindent
+Una vez cumplidos estos pasos ya se puede crear el certificado que usará nuestra autoridad certificadora. Para ello utilizo los siguientes parametros con el comando openssl:
+
+\begin{itemize}
+ \item -config ca.cnf para utilizar los parametros de configuracion del archivo ca.cnf.
+ \item -key private/cakey.pem para asociar el certificado con la key creada por el CA en el paso anterior.
+ \item -new para crear el certificado.
+ \item -x509 para que el certificado generado sea autofirmado.
+ \item -sha256 para indicarle la encriptación a utilizar.
+ \item -days 30 para indicar el periodo de validez del certificado.
+ \item -extensions v3\_ca para indicar que busque en el archivo de configuración la extensión v3\_ca.
+ \item -out cacert.pem para indicar el nombre del nuevo certificado creado.
+\end{itemize}
+
+\noindent
+Al crear el certificado nos pide los parámetros que debemos introducir para la creación del mismo.
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/1_4.png}
+\end{figure}
+
+\noindent
+Con esto ya tenemos listo el certificado que usará nuestra autoridad certificadora.
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 2}
