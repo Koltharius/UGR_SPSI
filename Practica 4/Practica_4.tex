@@ -88,14 +88,14 @@ linkcolor=webblue]{hyperref}
 \renewcommand{\labelenumiii}{\labelenumii\roman{enumiii}: }
 
 \title{Seguridad y Protección de Sistemas Informáticos \\
-Criptosistemas Asimétricos}
+Certificados Digitales}
 \author{David Sánchez Jiménez}
 
 \begin{document}
 \begin{titlepage}
  \begin{center}
   \HRule \\[0.8cm]
-  \textsc{\huge Seguridad y Protección \\ de Sistemas Informáticos \\[0.5cm] Criptosistemas Asimétricos}\\[1.6cm]
+  \textsc{\huge Seguridad y Protección \\ de Sistemas Informáticos \\[0.5cm] Certificados Digitales}\\[1.6cm]
   \HRule \\[1cm]
   \begin{flushleft}
    \emph{Hecho por:}\\
@@ -215,6 +215,7 @@ Cread una solicitud de certificado para cualquiera de las claves que habéis gen
 
 \section{Respuesta}
 \noindent
+He utilizado la clave sharedDSA.key utilizado en la práctica 3.
 
 \begin{figure}[!hbp]
  \centering  \includegraphics[width=1\textwidth]{./Imagenes/4.png}
@@ -242,6 +243,57 @@ Emplead las opciones -text y -noout para mostrar los valores de todos los certif
 
 \section{Respuesta}
 \noindent
+En las siguientes páginas mostraré los valores de los certificados y las solicitudes creados en los puntos anteriores.
+
+\newpage
+\subsection*{Ejercicio 1: cacert.pem}
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_1.png}
+\end{figure}
+
+\newpage
+\subsection*{Ejercicio 2: david.cert}
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_2.png}
+\end{figure}
+
+\newpage
+\subsection*{Ejercicio 3: davidcertificado.cert}
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_3.png}
+\end{figure}
+
+\noindent
+Para verificar la firma:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_4.png}
+\end{figure}
+
+
+\newpage
+\subsection*{Ejercicio 4: sharedDSA.cert}
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_5.png}
+\end{figure}
+
+\newpage
+\subsection*{Ejercicio 5: sharedDSAcertificado.cert}
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_6.png}
+\end{figure}
+
+\noindent
+Para verificar la firma:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/6_7.png}
+\end{figure}
 
 % ----------------------------------------------------------------
 
