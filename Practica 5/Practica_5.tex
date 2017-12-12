@@ -1,0 +1,159 @@
+\documentclass[10pt,a4paper,spanish]{report}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsthm}
+\usepackage{amsfonts, amssymb, latexsym}
+\usepackage{enumerate}
+\usepackage[official]{eurosym}
+\usepackage{graphicx}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{fancyhdr}
+\usepackage[all]{xy}
+\usepackage{pgfplots}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{titlesec}
+
+\pgfplotsset{compat=1.5}
+
+% a4large.sty -- fill an A4 (210mm x 297mm) page
+% Note: 1 inch = 25.4 mm = 72.27 pt
+%       1 pt = 3.5 mm (approx)
+
+% vertical page layout -- one inch margin top and bottom
+\topmargin      0 mm    % top margin less 1 inch
+\headheight     0 mm    % height of box containing the head
+\headsep       10 mm    % space between the head and the body of the page
+\textheight   250 mm
+\footskip      14 mm    % distance from bottom of body to bottom of foot
+
+% horizontal page layout -- one inch margin each side
+%\oddsidemargin    0   mm    % inner margin less one inch on odd pages
+%\evensidemargin   0   mm    % inner margin less one inch on even pages
+%\textwidth      159.2 mm    % normal width of text on page
+
+\usepackage[math]{iwona}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+
+\usepackage[pdftex, bookmarks=true,
+	bookmarksnumbered=false, % true means bookmarks in
+	% left window are numbered
+	bookmarksopen=false,     % true means only level 1
+	% are displayed.
+	colorlinks=true,
+linkcolor=webblue]{hyperref}
+
+\definecolor{webgreen}{rgb}{0, 0.5, 0} % less intense green
+\definecolor{webblue}{rgb}{0, 0, 0.5}  % less intense blue
+\definecolor{webred}{rgb}{0.5, 0, 0}   % less intense red
+\definecolor{dblackcolor}{rgb}{0.0,0.0,0.0}
+\definecolor{dbluecolor}{rgb}{.01,.02,0.7}
+\definecolor{dredcolor}{rgb}{0.8,0,0}
+\definecolor{dgraycolor}{rgb}{0.30,0.3,0.30}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % regla horizontal para  el titulo
+
+\pagestyle{fancy}
+%con esto nos aseguramos de que las cabeceras de capítulo y de sección vayan en minúsculas
+
+\renewcommand{\chaptermark}[1]{%
+	\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{%
+	\markright{\thesection\ #1}}
+\fancyhf{} %borra cabecera y pie actuales
+\fancyhead[LREO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\leftmark}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{0.5pt} %espacio para la raya
+\fancypagestyle{plain}{%
+	\fancyhead{} %elimina cabeceras en páginas "plain"
+	\renewcommand{\headrulewidth}{0pt} %así como la raya
+}
+
+%%%%% Para cambiar el tipo de letra en el título de la sección %%%%%%%%%%%
+\usepackage{sectsty}
+\chapterfont{\fontfamily{pag}\selectfont} %% for chapter if you want
+\sectionfont{\fontfamily{pag}\selectfont}
+\subsectionfont{\fontfamily{pag}\selectfont}
+\subsubsectionfont{\fontfamily{pag}\selectfont}
+\titleformat{\chapter}{\normalfont\Huge}{}{0pt}{\Huge} % Capítulos sin "Capítulo x" encima del título
+
+\renewcommand{\labelenumi}{\arabic{enumi}. }
+\renewcommand{\labelenumii}{\labelenumi\alph{enumii}) }
+\renewcommand{\labelenumiii}{\labelenumii\roman{enumiii}: }
+
+\title{Seguridad y Protección de Sistemas Informáticos \\
+Certificados Digitales}
+\author{David Sánchez Jiménez}
+
+\begin{document}
+\begin{titlepage}
+ \begin{center}
+  \HRule \\[0.8cm]
+  \textsc{\huge Seguridad y Protección \\ de Sistemas Informáticos \\[0.5cm] Puzles Hash}\\[1.6cm]
+  \HRule \\[1cm]
+  \begin{flushleft}
+   \emph{Hecho por:}\\
+   David Sánchez Jiménez
+  \end{flushleft}
+  \vspace{12cm}
+  \large{\today}\\
+  \vspace{0.5cm}
+  \htmladdnormallink{\includegraphics[width=2cm]{Imagenes/88x31.png}}
+  {http://creativecommons.org/licenses/by-nc/4.0/}\\[0.5cm]
+  \texttt{Prácticas de Seguridad y Protección de Sistemas Informáticos\\ by
+   \href{mailto:dasaji92@gmail.com}{David Sánchez Jiménez} is licensed under a \htmladdnormallink{Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional License}
+   {http://creativecommons.org/licenses/by-nc/4.0/}}.\\[3mm]
+ \end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ----------------------------------------------------------------
+\chapter{Ejercicio 1}
+
+\section{Enunciado}
+\noindent
+Elegid una función hash H con salida de n-bits con n $\leq$ 256. Para la función H, realizad, en el lenguaje de programación que queráis, una función que tome como entrada un texto y un número de bits b. Creará un id que concatene una cadena aleatoria de n bits con el texto. Pegará a ese id cadenas aleatorias x de n bits hasta lograr que H(id||x) tenga sus primeros b bits a cero. La salida será el id, la cadena x que haya proporcionado el hash requerido, el valor del hash y el número de intentos llevados a cabo hasta encontrar el valor x apropiado.
+
+\section{Respuesta}
+\noindent
+
+% ----------------------------------------------------------------
+\chapter{Ejercicio 2}
+
+\section{Enunciado}
+\noindent
+Calculad una tabla/gráfica que vaya calculando el número de intentos para cada valor de b. Con el objeto de que los resultados eviten ciertos sesgos, para cada tamaño b realizad el experimento 10 veces y calculad la media del número de intentos.
+
+\section{Respuesta}
+\noindent
+
+% ----------------------------------------------------------------
+\chapter{Ejercicio 3}
+
+\section{Enunciado}
+\noindent
+Repetid la función anterior con el siguiente cambio: Se toma un primer valor aleatorio x y se va incrementadno de 1 en 1 hasta obtener el hash requerido.
+
+\section{Respuesta}
+\noindent
+
+% ----------------------------------------------------------------
+\chapter{Ejercicio 4}
+
+\section{Enunciado}
+\noindent
+Calculad una nueva tabla/gráfica similar a la obtenida en el punto 2 pero con la función construida en 3.
+
+\section{Respuesta}
+\noindent
+
+% ----------------------------------------------------------------
+\end{document}
