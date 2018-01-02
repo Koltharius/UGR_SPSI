@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{titlesec}
 \usepackage{minted}
+\usepackage{adjustbox}
 
 \pgfplotsset{compat=1.5}
 
@@ -87,7 +88,6 @@ linkcolor=webblue]{hyperref}
 \renewcommand{\labelenumi}{\arabic{enumi}. }
 \renewcommand{\labelenumii}{\labelenumi\alph{enumii}) }
 \renewcommand{\labelenumiii}{\labelenumii\roman{enumiii}: }
-
 
 \newmintedfile[mypython]{python}{
 	frame=lines,
@@ -202,6 +202,52 @@ Calculad una tabla/gráfica que vaya calculando el número de intentos para cada
 
 \section{Respuesta}
 \noindent
+Los valores obtenidos tras ejecutar el programa son los siguientes:
+
+\begin{table}[h!]
+ \centering
+ \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|} %{|c|c|c|c|c|c|c|c|c|c|c|c|}
+   \hline
+   \textbf{Nº de Ceros / Intentos} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Media}      \\ \hline
+   \textbf{1}                      & 12         & 1          & 4          & 11         & 1          & 4          & 5          & 1          & 11         & 3           & \textbf{5,3}        \\ \hline
+   \textbf{2}                      & 7          & 7          & 1          & 4          & 9          & 2          & 4          & 19         & 1          & 6           & \textbf{6}          \\ \hline
+   \textbf{3}                      & 118        & 15         & 13         & 4          & 10         & 24         & 8          & 24         & 68         & 2           & \textbf{28,6}       \\ \hline
+   \textbf{4}                      & 10         & 19         & 118        & 37         & 15         & 3          & 44         & 8          & 15         & 36          & \textbf{30,5}       \\ \hline
+   \textbf{5}                      & 20         & 23         & 119        & 50         & 4          & 75         & 36         & 18         & 159        & 170         & \textbf{67,4}       \\ \hline
+   \textbf{6}                      & 42         & 26         & 277        & 84         & 40         & 175        & 61         & 85         & 86         & 93          & \textbf{96,9}       \\ \hline
+   \textbf{7}                      & 150        & 207        & 717        & 591        & 832        & 320        & 14         & 218        & 321        & 332         & \textbf{370,2}      \\ \hline
+   \textbf{8}                      & 260        & 82         & 871        & 1136       & 503        & 326        & 535        & 1770       & 493        & 87          & \textbf{606,3}      \\ \hline
+   \textbf{9}                      & 1182       & 670        & 2027       & 240        & 1583       & 40         & 225        & 80         & 1521       & 265         & \textbf{783,3}      \\ \hline
+   \textbf{10}                     & 2511       & 2229       & 1859       & 2813       & 4169       & 864        & 4934       & 539        & 1719       & 1696        & \textbf{2333,3}     \\ \hline
+   \textbf{11}                     & 416        & 1217       & 793        & 7325       & 8          & 3624       & 7991       & 8680       & 1922       & 2717        & \textbf{3469,3}     \\ \hline
+   \textbf{12}                     & 5860       & 728        & 872        & 16080      & 6621       & 14010      & 290        & 11106      & 11623      & 5363        & \textbf{7255,3}     \\ \hline
+   \textbf{13}                     & 4809       & 16326      & 6300       & 4285       & 12525      & 17727      & 4552       & 11970      & 8344       & 19757       & \textbf{10659,5}    \\ \hline
+   \textbf{14}                     & 48812      & 27900      & 28672      & 7942       & 15463      & 17345      & 28954      & 61345      & 55140      & 25593       & \textbf{31716,6}    \\ \hline
+   \textbf{15}                     & 423842     & 34957      & 139360     & 120943     & 19494      & 14759      & 46523      & 197031     & 328903     & 31592       & \textbf{135740,4}   \\ \hline
+   \textbf{16}                     & 120835     & 2971       & 168480     & 128215     & 115418     & 67088      & 31802      & 117        & 110350     & 54836       & \textbf{80011,2}    \\ \hline
+   \textbf{17}                     & 1012135    & 222147     & 803080     & 998473     & 27094      & 201611     & 169357     & 874104     & 38408      & 179413      & \textbf{452582,2}   \\ \hline
+   \textbf{18}                     & 740822     & 203950     & 854906     & 1060018    & 766873     & 540219     & 287806     & 111250     & 152429     & 131173      & \textbf{484944,6}   \\ \hline
+   \textbf{19}                     & 651540     & 781594     & 436037     & 2414583    & 311865     & 265733     & 4148501    & 402458     & 287998     & 491466      & \textbf{1019177,5}  \\ \hline
+   \textbf{20}                     & 375579     & 10917595   & 1827859    & 456307     & 388731     & 7068407    & 1428369    & 3129726    & 1887061    & 631543      & \textbf{2811117,7}  \\ \hline
+   \textbf{21}                     & 3371120    & 9513494    & 1372973    & 1284986    & 14837087   & 4317810    & 575044     & 8953137    & 344977     & 2544841     & \textbf{4711546,9}  \\ \hline
+   \textbf{22}                     & 747562     & 4106903    & 6935469    & 9442998    & 4764065    & 4957105    & 6438298    & 2245744    & 2579059    & 11886605    & \textbf{5410380,8}  \\ \hline
+   \textbf{23}                     & 18449029   & 13620445   & 23496994   & 61228476   & 24254250   & 77350      & 8239895    & 3311436    & 2167945    & 1512961     & \textbf{15635878,1} \\ \hline
+   \textbf{24}                     & 44861890   & 553780     & 55480485   & 17887351   & 46075468   & 232314     & 44558209   & 881961     & 33764438   & 40299785    & \textbf{28459568,1} \\ \hline
+   \textbf{25}                     & 26376743   & 41300365   & 24723294   & 45114523   & 23697001   & 25226909   & 18342696   & 2548015    & 47014109   & 45876502    & \textbf{30022015,7} \\ \hline
+  \end{tabular}
+ \end{adjustbox}
+\end{table}
+
+\noindent
+La gráfica obtenida a partir de los valores de la media reflejados en la tabla anterior es la siguiente:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/grafica_1.png}
+\end{figure}
+
+\noindent
+Se puede observar como a partir de la búsqueda de cadenas con diecinueve ceros delante empieza a subir el número de intentos y a partir de veintitres se dispara.
 
 % ----------------------------------------------------------------
 \chapter{Ejercicio 3}
