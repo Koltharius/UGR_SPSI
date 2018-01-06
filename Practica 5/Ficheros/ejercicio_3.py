@@ -12,11 +12,15 @@ def concatenate(text, number_string):
 
 
 def hash_puzzle(concatenation):
-    return hashlib.sha256(concatenation.encode('utf-8')).hexdigest()
+    return hashlib.sha256(concatenation.encode('utf-8 ')).hexdigest()
 
 
 def hex_to_bin(hexadecimal):
     return bin(int('1' + hexadecimal, 16))[3:]
+
+
+def add_one(x):
+    return str(int(x) + int(1))
 
 
 def print_results(identification, x, h, b, steps):
@@ -24,20 +28,23 @@ def print_results(identification, x, h, b, steps):
           x, "\nHash: ", h, "\nBinary: ", b, "\nSteps: ", steps)
 
 
-def puzzle(text, num_bits):
+def puzzle(identification, num_bits):
     condition = False
     steps = 0
+    x = rand_bits_number()
+    concatenation = concatenate(text, x)
+    h = hash_puzzle(concatenation)
+    b = hex_to_bin(h)
 
     while condition is not True:
-        x = rand_bits_number()
-        concatenation = concatenate(text, x)
-        h = hash_puzzle(concatenation)
-        b = hex_to_bin(h)
-
         if len(b.split("1", 1)[0]) == num_bits:
             steps += 1
             condition = True
         else:
+            x = add_one(x)
+            concatenation = concatenate(text, x)
+            h = hash_puzzle(concatenation)
+            b = hex_to_bin(h)
             steps += 1
 
     print_results(identification, x, h, b, steps)

@@ -89,15 +89,6 @@ linkcolor=webblue]{hyperref}
 \renewcommand{\labelenumii}{\labelenumi\alph{enumii}) }
 \renewcommand{\labelenumiii}{\labelenumii\roman{enumiii}: }
 
-\newmintedfile[mypython]{python}{
-	frame=lines,
-	framesep=2mm,
-	baselinestretch=1.2,
-	bgcolor=LightGray,
-	fontsize=\footnotesize,
-	linenos
-}
-
 \title{Seguridad y Protección de Sistemas Informáticos \\
 Certificados Digitales}
 \author{David Sánchez Jiménez}
@@ -137,39 +128,43 @@ Elegid una función hash H con salida de n-bits con n $\leq$ 256. Para la funci�
 \noindent
 
 \begin{minted}[linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm,]{python}
-	import formatter
 	import hashlib
 	import random
 	import sys
-	from itertools import groupby
 
 
 	def rand_bits_number():
+	    """Devuelve un numero random de 256 bits."""
 	    return str(random.getrandbits(256))
 
 
 	def concatenate(text, number_string):
+	    """Concatena el texto y la cadena de numeros."""
 	    return number_string + text
 
 
 	def hash_puzzle(concatenation):
+	    """Devuelve el hexadecimal de la función hash utilizando sha256"""
 	    return hashlib.sha256(concatenation.encode('utf-8 ')).hexdigest()
 
 
 	def hex_to_bin(hexadecimal):
+	    """Convierte un numero hexadecimal en binario"""
 	    return bin(int('1' + hexadecimal, 16))[3:]
 
 
 	def print_results(identification, x, h, b, steps):
+	    """Imprime los resultados"""
 	    print("\nID: ", identification, "\nX: ",
 	          x, "\nHash: ", h, "\nBinary: ", b, "\nSteps: ", steps)
 
 
 	def puzzle(text, num_bits):
+	    """Funcion principal que va generando la secuencia de numeros
+			y calculando la funcion hash hasta que el numero cumple la condicion
+			de tener num_bits de ceros al inicio."""
 	    condition = False
 	    steps = 0
-	    number_string = rand_bits_number()
-	    identification = concatenate(text, number_string)
 
 	    while condition != True:
 	        x = rand_bits_number()
@@ -187,10 +182,13 @@ Elegid una función hash H con salida de n-bits con n $\leq$ 256. Para la funci�
 
 
 	if __name__ == '__main__':
-	    text = open(sys.argv[1], mode='r', encoding='UTF-8')
+	    fh = open(sys.argv[1], mode='r', encoding='UTF-8')
+	    text = fh.read()
+	    fh.close()
 	    num_bits = sys.argv[2]
-	    puzzle(text.read(), int(num_bits))
-
+	    number_string = rand_bits_number()
+	    identification = concatenate(text, number_string)
+	    puzzle(identification, int(num_bits))
 \end{minted}
 
 % ----------------------------------------------------------------
@@ -209,32 +207,32 @@ Los valores obtenidos tras ejecutar el programa son los siguientes:
  \begin{adjustbox}{max width=\textwidth}
   \begin{tabular}{*{14}{|c}|} %{|c|c|c|c|c|c|c|c|c|c|c|c|}
    \hline
-   \textbf{Nº de Ceros / Intentos} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Media}      \\ \hline
-   \textbf{1}                      & 12         & 1          & 4          & 11         & 1          & 4          & 5          & 1          & 11         & 3           & \textbf{5,3}        \\ \hline
-   \textbf{2}                      & 7          & 7          & 1          & 4          & 9          & 2          & 4          & 19         & 1          & 6           & \textbf{6}          \\ \hline
-   \textbf{3}                      & 118        & 15         & 13         & 4          & 10         & 24         & 8          & 24         & 68         & 2           & \textbf{28,6}       \\ \hline
-   \textbf{4}                      & 10         & 19         & 118        & 37         & 15         & 3          & 44         & 8          & 15         & 36          & \textbf{30,5}       \\ \hline
-   \textbf{5}                      & 20         & 23         & 119        & 50         & 4          & 75         & 36         & 18         & 159        & 170         & \textbf{67,4}       \\ \hline
-   \textbf{6}                      & 42         & 26         & 277        & 84         & 40         & 175        & 61         & 85         & 86         & 93          & \textbf{96,9}       \\ \hline
-   \textbf{7}                      & 150        & 207        & 717        & 591        & 832        & 320        & 14         & 218        & 321        & 332         & \textbf{370,2}      \\ \hline
-   \textbf{8}                      & 260        & 82         & 871        & 1136       & 503        & 326        & 535        & 1770       & 493        & 87          & \textbf{606,3}      \\ \hline
-   \textbf{9}                      & 1182       & 670        & 2027       & 240        & 1583       & 40         & 225        & 80         & 1521       & 265         & \textbf{783,3}      \\ \hline
-   \textbf{10}                     & 2511       & 2229       & 1859       & 2813       & 4169       & 864        & 4934       & 539        & 1719       & 1696        & \textbf{2333,3}     \\ \hline
-   \textbf{11}                     & 416        & 1217       & 793        & 7325       & 8          & 3624       & 7991       & 8680       & 1922       & 2717        & \textbf{3469,3}     \\ \hline
-   \textbf{12}                     & 5860       & 728        & 872        & 16080      & 6621       & 14010      & 290        & 11106      & 11623      & 5363        & \textbf{7255,3}     \\ \hline
-   \textbf{13}                     & 4809       & 16326      & 6300       & 4285       & 12525      & 17727      & 4552       & 11970      & 8344       & 19757       & \textbf{10659,5}    \\ \hline
-   \textbf{14}                     & 48812      & 27900      & 28672      & 7942       & 15463      & 17345      & 28954      & 61345      & 55140      & 25593       & \textbf{31716,6}    \\ \hline
-   \textbf{15}                     & 423842     & 34957      & 139360     & 120943     & 19494      & 14759      & 46523      & 197031     & 328903     & 31592       & \textbf{135740,4}   \\ \hline
-   \textbf{16}                     & 120835     & 2971       & 168480     & 128215     & 115418     & 67088      & 31802      & 117        & 110350     & 54836       & \textbf{80011,2}    \\ \hline
-   \textbf{17}                     & 1012135    & 222147     & 803080     & 998473     & 27094      & 201611     & 169357     & 874104     & 38408      & 179413      & \textbf{452582,2}   \\ \hline
-   \textbf{18}                     & 740822     & 203950     & 854906     & 1060018    & 766873     & 540219     & 287806     & 111250     & 152429     & 131173      & \textbf{484944,6}   \\ \hline
-   \textbf{19}                     & 651540     & 781594     & 436037     & 2414583    & 311865     & 265733     & 4148501    & 402458     & 287998     & 491466      & \textbf{1019177,5}  \\ \hline
-   \textbf{20}                     & 375579     & 10917595   & 1827859    & 456307     & 388731     & 7068407    & 1428369    & 3129726    & 1887061    & 631543      & \textbf{2811117,7}  \\ \hline
-   \textbf{21}                     & 3371120    & 9513494    & 1372973    & 1284986    & 14837087   & 4317810    & 575044     & 8953137    & 344977     & 2544841     & \textbf{4711546,9}  \\ \hline
-   \textbf{22}                     & 747562     & 4106903    & 6935469    & 9442998    & 4764065    & 4957105    & 6438298    & 2245744    & 2579059    & 11886605    & \textbf{5410380,8}  \\ \hline
-   \textbf{23}                     & 18449029   & 13620445   & 23496994   & 61228476   & 24254250   & 77350      & 8239895    & 3311436    & 2167945    & 1512961     & \textbf{15635878,1} \\ \hline
-   \textbf{24}                     & 44861890   & 553780     & 55480485   & 17887351   & 46075468   & 232314     & 44558209   & 881961     & 33764438   & 40299785    & \textbf{28459568,1} \\ \hline
-   \textbf{25}                     & 26376743   & 41300365   & 24723294   & 45114523   & 23697001   & 25226909   & 18342696   & 2548015    & 47014109   & 45876502    & \textbf{30022015,7} \\ \hline
+   \textbf{Intentos/Nº. de ceros} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Media}      \\ \hline
+   \textbf{1}                     & 12         & 1          & 4          & 11         & 1          & 4          & 5          & 1          & 11         & 3           & \textbf{5,3}        \\ \hline
+   \textbf{2}                     & 7          & 7          & 1          & 4          & 9          & 2          & 4          & 19         & 1          & 6           & \textbf{6}          \\ \hline
+   \textbf{3}                     & 118        & 15         & 13         & 4          & 10         & 24         & 8          & 24         & 68         & 2           & \textbf{28,6}       \\ \hline
+   \textbf{4}                     & 10         & 19         & 118        & 37         & 15         & 3          & 44         & 8          & 15         & 36          & \textbf{30,5}       \\ \hline
+   \textbf{5}                     & 20         & 23         & 119        & 50         & 4          & 75         & 36         & 18         & 159        & 170         & \textbf{67,4}       \\ \hline
+   \textbf{6}                     & 42         & 26         & 277        & 84         & 40         & 175        & 61         & 85         & 86         & 93          & \textbf{96,9}       \\ \hline
+   \textbf{7}                     & 150        & 207        & 717        & 591        & 832        & 320        & 14         & 218        & 321        & 332         & \textbf{370,2}      \\ \hline
+   \textbf{8}                     & 260        & 82         & 871        & 1136       & 503        & 326        & 535        & 1770       & 493        & 87          & \textbf{606,3}      \\ \hline
+   \textbf{9}                     & 1182       & 670        & 2027       & 240        & 1583       & 40         & 225        & 80         & 1521       & 265         & \textbf{783,3}      \\ \hline
+   \textbf{10}                    & 2511       & 2229       & 1859       & 2813       & 4169       & 864        & 4934       & 539        & 1719       & 1696        & \textbf{2333,3}     \\ \hline
+   \textbf{11}                    & 416        & 1217       & 793        & 7325       & 8          & 3624       & 7991       & 8680       & 1922       & 2717        & \textbf{3469,3}     \\ \hline
+   \textbf{12}                    & 5860       & 728        & 872        & 16080      & 6621       & 14010      & 290        & 11106      & 11623      & 5363        & \textbf{7255,3}     \\ \hline
+   \textbf{13}                    & 4809       & 16326      & 6300       & 4285       & 12525      & 17727      & 4552       & 11970      & 8344       & 19757       & \textbf{10659,5}    \\ \hline
+   \textbf{14}                    & 48812      & 27900      & 28672      & 7942       & 15463      & 17345      & 28954      & 61345      & 55140      & 25593       & \textbf{31716,6}    \\ \hline
+   \textbf{15}                    & 423842     & 34957      & 139360     & 120943     & 19494      & 14759      & 46523      & 197031     & 328903     & 31592       & \textbf{135740,4}   \\ \hline
+   \textbf{16}                    & 120835     & 2971       & 168480     & 128215     & 115418     & 67088      & 31802      & 117        & 110350     & 54836       & \textbf{80011,2}    \\ \hline
+   \textbf{17}                    & 1012135    & 222147     & 803080     & 998473     & 27094      & 201611     & 169357     & 874104     & 38408      & 179413      & \textbf{452582,2}   \\ \hline
+   \textbf{18}                    & 740822     & 203950     & 854906     & 1060018    & 766873     & 540219     & 287806     & 111250     & 152429     & 131173      & \textbf{484944,6}   \\ \hline
+   \textbf{19}                    & 651540     & 781594     & 436037     & 2414583    & 311865     & 265733     & 4148501    & 402458     & 287998     & 491466      & \textbf{1019177,5}  \\ \hline
+   \textbf{20}                    & 375579     & 10917595   & 1827859    & 456307     & 388731     & 7068407    & 1428369    & 3129726    & 1887061    & 631543      & \textbf{2811117,7}  \\ \hline
+   \textbf{21}                    & 3371120    & 9513494    & 1372973    & 1284986    & 14837087   & 4317810    & 575044     & 8953137    & 344977     & 2544841     & \textbf{4711546,9}  \\ \hline
+   \textbf{22}                    & 747562     & 4106903    & 6935469    & 9442998    & 4764065    & 4957105    & 6438298    & 2245744    & 2579059    & 11886605    & \textbf{5410380,8}  \\ \hline
+   \textbf{23}                    & 18449029   & 13620445   & 23496994   & 61228476   & 24254250   & 77350      & 8239895    & 3311436    & 2167945    & 1512961     & \textbf{15635878,1} \\ \hline
+   \textbf{24}                    & 44861890   & 553780     & 55480485   & 17887351   & 46075468   & 232314     & 44558209   & 881961     & 33764438   & 40299785    & \textbf{28459568,1} \\ \hline
+   \textbf{25}                    & 26376743   & 41300365   & 24723294   & 45114523   & 23697001   & 25226909   & 18342696   & 2548015    & 47014109   & 45876502    & \textbf{30022015,7} \\ \hline
   \end{tabular}
  \end{adjustbox}
 \end{table}
@@ -259,6 +257,78 @@ Repetid la función anterior con el siguiente cambio: Se toma un primer valor al
 \section{Respuesta}
 \noindent
 
+\begin{minted}[linenos,numbersep=5pt,gobble=0,frame=lines,framesep=2mm,]{python}
+	import formatter
+	import hashlib
+	import random
+	import sys
+	from itertools import groupby
+
+
+	def rand_bits_number():
+		"""Devuelve un numero random de 256 bits."""
+	    return str(random.getrandbits(256))
+
+
+	def concatenate(text, number_string):
+		"""Concatena el texto y la cadena de numeros."""
+	    return number_string + text
+
+
+	def hash_puzzle(concatenation):
+		"""Devuelve el hexadecimal de la función hash utilizando sha256"""
+	    return hashlib.sha256(concatenation.encode('utf-8 ')).hexdigest()
+
+
+	def hex_to_bin(hexadecimal):
+		"""Convierte un numero hexadecimal en binario"""
+	    return bin(int('1' + hexadecimal, 16))[3:]
+
+
+	def add_one(x):
+		"""Añade uno al numero aleatorio x"""
+	    return str(int(x) + int(1))
+
+
+	def print_results(identification, x, h, b, steps):
+		"""Imprime los resultados"""
+	    print("\nID: ", identification, "\nX: ",
+	          x, "\nHash: ", h, "\nBinary: ", b, "\nSteps: ", steps)
+
+
+	def puzzle(text, num_bits):
+		"""Funcion principal que va sumando uno a x y calculando la
+		funcion hash hasta que el numero cumple la condicion de tener
+		num_bits de ceros al inicio."""
+	    condition = False
+	    steps = 0
+	    number_string = rand_bits_number()
+	    identification = concatenate(text, number_string)
+
+	    x = rand_bits_number()
+	    concatenation = concatenate(text, x)
+	    h = hash_puzzle(concatenation)
+	    b = hex_to_bin(h)
+
+	    while condition != True:
+	        if len(b.split("1", 1)[0]) == num_bits:
+	            steps += 1
+	            condition = True
+	        else:
+	            x = add_one(x)
+	            concatenation = concatenate(text, x)
+	            h = hash_puzzle(concatenation)
+	            b = hex_to_bin(h)
+	            steps += 1
+
+	    print_results(identification, x, h, b, steps)
+
+	if __name__ == '__main__':
+	    text = open(sys.argv[1], mode='r', encoding='UTF-8')
+	    num_bits = sys.argv[2]
+	    puzzle(text.read(), int(num_bits))
+\end{minted}
+
 % ----------------------------------------------------------------
 \chapter{Ejercicio 4}
 
@@ -268,6 +338,52 @@ Calculad una nueva tabla/gráfica similar a la obtenida en el punto 2 pero con l
 
 \section{Respuesta}
 \noindent
+Los valores obtenidos tras ejecutar el programa son los siguientes:
+
+\begin{table}[h!]
+ \centering
+ \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|} %{|c|c|c|c|c|c|c|c|c|c|c|c|}
+   \hline
+   \textbf{Intentos / Nº. de ceros} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Media}      \\ \hline
+   \textbf{1}                       & 2          & 4          & 9          & 3          & 5          & 1          & 7          & 2          & 2          & 1           & \textbf{3,6}        \\ \hline
+   \textbf{2}                       & 8          & 8          & 7          & 4          & 6          & 4          & 1          & 2          & 7          & 10          & \textbf{5,7}        \\ \hline
+   \textbf{3}                       & 21         & 20         & 6          & 16         & 5          & 13         & 1          & 8          & 2          & 8           & \textbf{10}         \\ \hline
+   \textbf{4}                       & 13         & 53         & 124        & 23         & 3          & 12         & 202        & 1          & 4          & 14          & \textbf{44,9}       \\ \hline
+   \textbf{5}                       & 109        & 20         & 34         & 6          & 41         & 342        & 128        & 10         & 29         & 32          & \textbf{75,1}       \\ \hline
+   \textbf{6}                       & 64         & 15         & 141        & 1          & 20         & 248        & 27         & 9          & 69         & 46          & \textbf{64}         \\ \hline
+   \textbf{7}                       & 28         & 296        & 428        & 85         & 246        & 264        & 108        & 309        & 263        & 137         & \textbf{216,4}      \\ \hline
+   \textbf{8}                       & 365        & 107        & 528        & 40         & 393        & 66         & 1192       & 622        & 1335       & 174         & \textbf{482,2}      \\ \hline
+   \textbf{9}                       & 835        & 1930       & 594        & 2326       & 196        & 1452       & 1509       & 2213       & 170        & 993         & \textbf{1221,8}     \\ \hline
+   \textbf{10}                      & 4595       & 177        & 1087       & 3546       & 1691       & 7397       & 908        & 2820       & 1257       & 3170        & \textbf{2664,8}     \\ \hline
+   \textbf{11}                      & 8063       & 5874       & 14560      & 18885      & 7603       & 1246       & 1895       & 1334       & 921        & 3424        & \textbf{6380,5}     \\ \hline
+   \textbf{12}                      & 36         & 46217      & 2850       & 7507       & 2388       & 17988      & 7587       & 3083       & 19710      & 1354        & \textbf{10872}      \\ \hline
+   \textbf{13}                      & 2069       & 6723       & 18613      & 6923       & 4110       & 14869      & 10047      & 7449       & 20477      & 27030       & \textbf{11831}      \\ \hline
+   \textbf{14}                      & 8449       & 70509      & 7181       & 10526      & 3555       & 6189       & 21990      & 26516      & 246590     & 19292       & \textbf{42079,7}    \\ \hline
+   \textbf{15}                      & 63024      & 4156       & 88116      & 41247      & 13530      & 17897      & 45275      & 74131      & 31502      & 4276        & \textbf{38315,4}    \\ \hline
+   \textbf{16}                      & 154789     & 101088     & 417033     & 26004      & 980491     & 227639     & 74956      & 56891      & 186576     & 14009       & \textbf{223947,6}   \\ \hline
+   \textbf{17}                      & 98924      & 790262     & 787152     & 64876      & 62818      & 125110     & 99550      & 687904     & 76746      & 435873      & \textbf{322921,5}   \\ \hline
+   \textbf{18}                      & 287073     & 1274786    & 1789580    & 686310     & 748601     & 176099     & 238989     & 68361      & 31997      & 146540      & \textbf{544833,6}   \\ \hline
+   \textbf{19}                      & 445514     & 623661     & 433960     & 28612      & 47299      & 78241      & 2091411    & 529124     & 304550     & 4978041     & \textbf{956041,3}   \\ \hline
+   \textbf{20}                      & 1667644    & 523549     & 710695     & 19957      & 889650     & 4855775    & 4280629    & 1107227    & 3698963    & 1572213     & \textbf{1932630,2}  \\ \hline
+   \textbf{21}                      & 295824     & 7299084    & 2224132    & 1238926    & 4291680    & 4703119    & 1213081    & 14838179   & 2597119    & 4575648     & \textbf{4327679,2}  \\ \hline
+   \textbf{22}                      & 15673303   & 5237712    & 43970860   & 7162274    & 12712489   & 5202883    & 553729     & 3579007    & 21410889   & 3542837     & \textbf{11904598,3} \\ \hline
+   \textbf{23}                      & 5465210    & 23254428   & 9880433    & 2076464    & 26903812   & 28265019   & 12247371   & 2716031    & 26165364   & 46839172    & \textbf{18381330,4} \\ \hline
+   \textbf{24}                      & 4763081    & 2074652    & 6078395    & 144207692  & 31816530   & 80731749   & 27893822   & 62348626   & 34089691   & 40733593    & \textbf{43473783,1} \\ \hline
+   \textbf{25}                      & 12067604   & 118075353  & 23972376   & 108158180  & 177508146  & 2403723    & 92149070   & 2873286    & 90841108   & 115802756   & \textbf{87956331,8} \\ \hline
+  \end{tabular}
+ \end{adjustbox}
+\end{table}
+
+\noindent
+La gráfica obtenida a partir de los valores de la media reflejados en la tabla anterior es la siguiente:
+
+\begin{figure}[!hbp]
+ \centering  \includegraphics[width=1\textwidth]{./Imagenes/grafica_2.png}
+\end{figure}
+
+\noindent
+Se puede observar como es similar a la obtenida en el ejercicio 2.
 
 % ----------------------------------------------------------------
 \end{document}
